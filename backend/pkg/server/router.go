@@ -46,13 +46,13 @@ var frontendRoutes = []string{
 	"/login",
 }
 
-// @title PentAGI Swagger API
+// @title XIQ Swagger API
 // @version 1.0
-// @description Swagger API for Penetration Testing Advanced General Intelligence PentAGI.
+// @description Swagger API for XIQ - Advanced Offensive Security Platform.
 // @termsOfService http://swagger.io/terms/
 
 // @contact.url https://pentagi.com
-// @contact.name PentAGI Development Team
+// @contact.name XIQ Development Team
 // @contact.email team@pentagi.com
 
 // @license.name MIT

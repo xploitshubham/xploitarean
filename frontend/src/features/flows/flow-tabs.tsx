@@ -39,17 +39,61 @@ const FlowTabs = ({ activeTab, onTabChange }: FlowTabsProps) => {
             onValueChange={onTabChange}
             value={activeTab}
         >
-            <div className="max-w-full pr-4">
-                <ScrollArea className="w-full pb-2">
-                    <TabsList className="flex w-fit">
-                        {!isDesktop && <TabsTrigger value="automation">Automation</TabsTrigger>}
-                        {!isDesktop && <TabsTrigger value="assistant">Assistant</TabsTrigger>}
-                        <TabsTrigger value="terminal">Terminal</TabsTrigger>
-                        <TabsTrigger value="tasks">Tasks</TabsTrigger>
-                        <TabsTrigger value="agents">Agents</TabsTrigger>
-                        <TabsTrigger value="tools">Searches</TabsTrigger>
-                        <TabsTrigger value="vectorStores">Vector Store</TabsTrigger>
-                        <TabsTrigger value="screenshots">Screenshots</TabsTrigger>
+            <div className="max-w-full">
+                <ScrollArea className="w-full pb-3">
+                    <TabsList className="flex w-fit gap-1 bg-muted/30 p-1">
+                        {!isDesktop && (
+                            <TabsTrigger
+                                className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm transition-all"
+                                value="automation"
+                            >
+                                Automation
+                            </TabsTrigger>
+                        )}
+                        {!isDesktop && (
+                            <TabsTrigger
+                                className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm transition-all"
+                                value="assistant"
+                            >
+                                Assistant
+                            </TabsTrigger>
+                        )}
+                        <TabsTrigger
+                            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm transition-all"
+                            value="terminal"
+                        >
+                            Terminal
+                        </TabsTrigger>
+                        <TabsTrigger
+                            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm transition-all"
+                            value="tasks"
+                        >
+                            Tasks
+                        </TabsTrigger>
+                        <TabsTrigger
+                            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm transition-all"
+                            value="agents"
+                        >
+                            Agents
+                        </TabsTrigger>
+                        <TabsTrigger
+                            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm transition-all"
+                            value="tools"
+                        >
+                            Searches
+                        </TabsTrigger>
+                        <TabsTrigger
+                            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm transition-all"
+                            value="vectorStores"
+                        >
+                            Vector Store
+                        </TabsTrigger>
+                        <TabsTrigger
+                            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm transition-all"
+                            value="screenshots"
+                        >
+                            Screenshots
+                        </TabsTrigger>
                     </TabsList>
                     <ScrollBar orientation="horizontal" />
                 </ScrollArea>
@@ -58,7 +102,7 @@ const FlowTabs = ({ activeTab, onTabChange }: FlowTabsProps) => {
             {/* Mobile Tabs only */}
             {!isDesktop && (
                 <TabsContent
-                    className="mt-2 flex-1 overflow-auto"
+                    className="mt-4 flex-1 overflow-auto"
                     value="automation"
                 >
                     <FlowAutomationMessages className="pr-4" />
@@ -66,7 +110,7 @@ const FlowTabs = ({ activeTab, onTabChange }: FlowTabsProps) => {
             )}
             {!isDesktop && (
                 <TabsContent
-                    className="mt-2 flex-1 overflow-auto"
+                    className="mt-4 flex-1 overflow-auto"
                     value="assistant"
                 >
                     <FlowAssistantMessages className="pr-4" />
@@ -75,42 +119,42 @@ const FlowTabs = ({ activeTab, onTabChange }: FlowTabsProps) => {
 
             {/* Desktop and Mobile Tabs */}
             <TabsContent
-                className="mt-2 flex-1 overflow-auto"
+                className="mt-4 flex-1 overflow-auto"
                 value="terminal"
             >
                 <FlowTerminal />
             </TabsContent>
 
             <TabsContent
-                className="mt-2 flex-1 overflow-auto pr-4"
+                className="mt-4 flex-1 overflow-auto"
                 value="tasks"
             >
                 <FlowTasks />
             </TabsContent>
 
             <TabsContent
-                className="mt-2 flex-1 overflow-auto pr-4"
+                className="mt-4 flex-1 overflow-auto"
                 value="agents"
             >
                 <FlowAgents />
             </TabsContent>
 
             <TabsContent
-                className="mt-2 flex-1 overflow-auto pr-4"
+                className="mt-4 flex-1 overflow-auto"
                 value="tools"
             >
                 <FlowTools />
             </TabsContent>
 
             <TabsContent
-                className="mt-2 flex-1 overflow-auto pr-4"
+                className="mt-4 flex-1 overflow-auto"
                 value="vectorStores"
             >
                 <FlowVectorStores />
             </TabsContent>
 
             <TabsContent
-                className="mt-2 flex-1 overflow-auto pr-4"
+                className="mt-4 flex-1 overflow-auto"
                 value="screenshots"
             >
                 <FlowScreenshots />

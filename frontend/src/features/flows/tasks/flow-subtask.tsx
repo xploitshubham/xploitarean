@@ -57,43 +57,52 @@ const FlowSubtask = ({ searchValue = '', subtask }: FlowSubtaskProps) => {
     }, [searchValue, searchChecks.hasDescriptionMatch, searchChecks.hasResultMatch]);
 
     return (
-        <div className="group relative flex gap-2.5 pb-4 pl-0.5">
-            <FlowTaskStatusIcon
-                className="bg-background ring-border ring-background relative z-1 mt-px rounded-full ring-3"
-                status={status}
-                tooltip={`Subtask ID: ${id}`}
-            />
-            <div className="flex flex-1 flex-col gap-2">
-                <div className="text-sm">
+        <div className="group relative flex gap-3 rounded-lg py-2.5 transition-colors hover:bg-muted/20">
+            {/* Status Icon */}
+            <div className="shrink-0 pt-1">
+                <FlowTaskStatusIcon
+                    className="bg-background ring-border ring-background relative z-10 size-5 rounded-full ring-2 shadow-sm transition-transform group-hover:scale-110"
+                    status={status}
+                    tooltip={`Subtask ID: ${id}`}
+                />
+            </div>
+
+            {/* Subtask Content */}
+            <div className="flex flex-1 flex-col gap-2.5 min-w-0">
+                {/* Subtask Title */}
+                <div className="text-sm font-medium leading-snug">
                     <Markdown
-                        className="prose-fixed prose-sm wrap-break-word *:m-0 [&>p]:leading-tight"
+                        className="prose-fixed prose-sm prose-headings:font-medium wrap-break-word *:m-0 [&>p]:leading-relaxed [&>p]:text-foreground"
                         searchValue={searchValue}
                     >
                         {title}
                     </Markdown>
                 </div>
 
+                {/* Details Toggle */}
                 {hasDetails && (
-                    <div className="text-muted-foreground text-xs">
-                        <div
-                            className="cursor-pointer hover:underline"
+                    <div className="mt-0.5">
+                        <button
+                            className="flex items-center gap-1.5 rounded-md px-2 py-1 text-xs font-semibold text-primary transition-all hover:bg-primary/10 hover:text-primary/90"
                             onClick={() => setIsDetailsVisible(!isDetailsVisible)}
+                            type="button"
                         >
-                            {isDetailsVisible ? 'Hide details' : 'Show details'}
-                        </div>
+                            <span>{isDetailsVisible ? '▼' : '▶'}</span>
+                            <span>{isDetailsVisible ? 'Hide details' : 'Show details'}</span>
+                        </button>
                         {isDetailsVisible && (
-                            <div className="mt-4 flex flex-col gap-4">
+                            <div className="mt-3 space-y-3">
                                 {description && (
-                                    <Card>
-                                        <CardHeader className="p-3">
-                                            <CardTitle className="flex items-center gap-2">
-                                                <ListTodo className="size-4 shrink-0" /> Description
+                                    <Card className="border-muted/50 bg-muted/30 shadow-sm transition-shadow hover:shadow-md">
+                                        <CardHeader className="border-b border-muted/50 bg-muted/40 pb-2.5 px-4 pt-4">
+                                            <CardTitle className="flex items-center gap-2 text-sm font-semibold">
+                                                <ListTodo className="size-3.5 shrink-0 text-primary/70" />
+                                                Description
                                             </CardTitle>
                                         </CardHeader>
-                                        <CardContent className="p-3 pt-0">
-                                            <hr className="mt-0 mb-3" />
+                                        <CardContent className="px-4 pb-4 pt-4">
                                             <Markdown
-                                                className="prose-xs prose-fixed wrap-break-word"
+                                                className="prose-xs prose-fixed wrap-break-word prose-pre:bg-muted/50 prose-code:text-xs"
                                                 searchValue={searchValue}
                                             >
                                                 {description}
@@ -102,16 +111,16 @@ const FlowSubtask = ({ searchValue = '', subtask }: FlowSubtaskProps) => {
                                     </Card>
                                 )}
                                 {result && (
-                                    <Card>
-                                        <CardHeader className="p-3">
-                                            <CardTitle className="flex items-center gap-2">
-                                                <ListCheck className="size-4 shrink-0" /> Result
+                                    <Card className="border-muted/50 bg-muted/30 shadow-sm transition-shadow hover:shadow-md">
+                                        <CardHeader className="border-b border-muted/50 bg-muted/40 pb-2.5 px-4 pt-4">
+                                            <CardTitle className="flex items-center gap-2 text-sm font-semibold">
+                                                <ListCheck className="size-3.5 shrink-0 text-emerald-500/70" />
+                                                Result
                                             </CardTitle>
                                         </CardHeader>
-                                        <CardContent className="p-3 pt-0">
-                                            <hr className="mt-0 mb-3" />
+                                        <CardContent className="px-4 pb-4 pt-4">
                                             <Markdown
-                                                className="prose-xs prose-fixed wrap-break-word"
+                                                className="prose-xs prose-fixed wrap-break-word prose-pre:bg-muted/50 prose-code:text-xs"
                                                 searchValue={searchValue}
                                             >
                                                 {result}
@@ -124,7 +133,6 @@ const FlowSubtask = ({ searchValue = '', subtask }: FlowSubtaskProps) => {
                     </div>
                 )}
             </div>
-            <div className="absolute top-0 left-[calc((--spacing(2.5))-0.5px)] h-full border-l group-last:hidden"></div>
         </div>
     );
 };

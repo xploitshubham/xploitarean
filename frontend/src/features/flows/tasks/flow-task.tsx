@@ -78,75 +78,92 @@ const FlowTask = ({ searchValue = '', task }: FlowTaskProps) => {
     }, [subtasks, completedSubtasksCount]);
 
     return (
-        <div className="flex flex-col">
-            <div className="relative flex gap-2 pb-4">
-                <FlowTaskStatusIcon
-                    className="bg-background ring-border ring-background relative z-1 -mt-px size-5 rounded-full ring-3"
-                    status={status}
-                    tooltip={`Task ID: ${id}`}
-                />
-                <div className="flex flex-1 flex-col gap-2">
-                    <div className="font-semibold">
-                        <Markdown
-                            className="prose-fixed prose-sm wrap-break-word *:m-0 [&>p]:leading-tight"
-                            searchValue={searchValue}
-                        >
-                            {title}
-                        </Markdown>
+        <Card className="group relative overflow-hidden border-muted/50 bg-gradient-to-br from-card to-muted/10 shadow-sm transition-all duration-300 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5">
+            <div className="absolute inset-0 bg-gradient-to-br from-primary/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+            <CardContent className="relative p-6">
+                <div className="relative flex gap-4">
+                    {/* Status Icon */}
+                    <div className="shrink-0 pt-0.5">
+                        <FlowTaskStatusIcon
+                            className="bg-background ring-border ring-background relative z-10 size-7 rounded-full ring-2 shadow-md transition-transform group-hover:scale-110"
+                            status={status}
+                            tooltip={`Task ID: ${id}`}
+                        />
                     </div>
 
-                    {hasSubtasks && progress < 100 && (
-                        <div className="flex items-center gap-2">
-                            <Progress
-                                className="h-1.5 flex-1"
-                                value={progress}
-                            />
-                            <div className="text-muted-foreground shrink-0 text-xs text-nowrap">
-                                {progress}% completed ({completedSubtasksCount} of {subtasks?.length})
-                            </div>
-                        </div>
-                    )}
-
-                    {result && (
-                        <div className="text-muted-foreground text-xs">
-                            <div
-                                className="cursor-pointer"
-                                onClick={() => setIsDetailsVisible(!isDetailsVisible)}
+                    {/* Task Content */}
+                    <div className="flex flex-1 flex-col gap-3.5 min-w-0">
+                        {/* Task Title */}
+                        <div className="font-semibold leading-snug">
+                            <Markdown
+                                className="prose-fixed prose-sm prose-headings:font-semibold wrap-break-word *:m-0 [&>p]:leading-relaxed [&>p]:text-foreground"
+                                searchValue={searchValue}
                             >
-                                {isDetailsVisible ? 'Hide details' : 'Show details'}
-                            </div>
-                            {isDetailsVisible && (
-                                <Card className="mt-4">
-                                    <CardContent className="p-3">
-                                        <Markdown
-                                            className="prose-xs prose-fixed wrap-break-word"
-                                            searchValue={searchValue}
-                                        >
-                                            {result}
-                                        </Markdown>
-                                    </CardContent>
-                                </Card>
-                            )}
+                                {title}
+                            </Markdown>
                         </div>
-                    )}
-                </div>
-                <div className="border-red absolute top-0 left-[calc((--spacing(2.5))-0.5px)] h-full border-l"></div>
-            </div>
 
-            {hasSubtasks ? (
-                <div className="flex flex-col">
-                    {sortedSubtasks.map((subtask) => (
-                        <FlowSubtask
-                            key={subtask.id}
-                            searchValue={searchValue}
-                            subtask={subtask}
-                        />
-                    ))}
+                        {/* Progress Bar */}
+                        {hasSubtasks && progress < 100 && (
+                            <div className="space-y-2">
+                                <div className="flex items-center justify-between gap-3">
+                                    <Progress
+                                        className="h-2.5 flex-1 bg-muted/50 shadow-inner"
+                                        value={progress}
+                                    />
+                                    <div className="shrink-0 rounded-md bg-muted/50 px-2 py-0.5 text-xs font-semibold text-muted-foreground">
+                                        {progress}% • {completedSubtasksCount}/{subtasks?.length}
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Result Details */}
+                        {result && (
+                            <div className="mt-1">
+                                <button
+                                    className="flex items-center gap-1.5 rounded-md px-2 py-1 text-xs font-semibold text-primary transition-all hover:bg-primary/10 hover:text-primary/90"
+                                    onClick={() => setIsDetailsVisible(!isDetailsVisible)}
+                                    type="button"
+                                >
+                                    <span>{isDetailsVisible ? '▼' : '▶'}</span>
+                                    <span>{isDetailsVisible ? 'Hide details' : 'Show details'}</span>
+                                </button>
+                                {isDetailsVisible && (
+                                    <Card className="mt-3 border-muted/50 bg-muted/40 shadow-sm">
+                                        <CardContent className="p-4">
+                                            <Markdown
+                                                className="prose-xs prose-fixed wrap-break-word prose-pre:bg-muted/50 prose-code:text-xs"
+                                                searchValue={searchValue}
+                                            >
+                                                {result}
+                                            </Markdown>
+                                        </CardContent>
+                                    </Card>
+                                )}
+                            </div>
+                        )}
+                    </div>
                 </div>
-            ) : (
-                <div className="text-muted-foreground mt-2 ml-6 text-xs">Waiting for subtasks to be created...</div>
-            )}
-        </div>
+
+                {/* Subtasks */}
+                {hasSubtasks ? (
+                    <div className="mt-5 ml-11 space-y-3 border-l-2 border-primary/20 pl-5">
+                        {sortedSubtasks.map((subtask) => (
+                            <FlowSubtask
+                                key={subtask.id}
+                                searchValue={searchValue}
+                                subtask={subtask}
+                            />
+                        ))}
+                    </div>
+                ) : (
+                    <div className="mt-4 ml-11 rounded-md bg-muted/30 px-3 py-2 text-xs text-muted-foreground italic">
+                        Waiting for subtasks to be created...
+                    </div>
+                )}
+            </CardContent>
+        </Card>
     );
 };
 

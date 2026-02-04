@@ -330,7 +330,7 @@ const createPDFDocument = (htmlContent: string): string => {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PentAGI Report</title>
+    <title>XIQ Report</title>
     <style>
         ${styles}
     </style>

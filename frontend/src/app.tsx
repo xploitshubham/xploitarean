@@ -5,6 +5,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import AppLayout from '@/components/layouts/app-layout';
 import FlowsLayout from '@/components/layouts/flows-layout';
 import MainLayout from '@/components/layouts/main-layout';
+import OffsecLayout from '@/components/layouts/offsec-layout';
 import SettingsLayout from '@/components/layouts/settings-layout';
 import ProtectedRoute from '@/components/routes/protected-route';
 import PublicRoute from '@/components/routes/public-route';
@@ -18,6 +19,19 @@ import { ThemeProvider } from '@/providers/theme-provider';
 import { UserProvider } from '@/providers/user-provider';
 
 import { SystemSettingsProvider } from './providers/system-settings-provider';
+import OffsecDashboard from '@/pages/offsec/offsec-dashboard';
+import WorkspaceShell from '@/pages/offsec/workspace-shell';
+import {
+    AIAttackFlowSection,
+    OSINTHunterSection,
+    PayloadGeneratorSection,
+    PoCMakerSection,
+    ReconSection,
+    ReportGeneratorSection,
+    ZeroDayFinderSection,
+    ToolboxSection,
+    WorkspaceDashboardSection,
+} from '@/pages/offsec/workspace-sections';
 
 const Flow = lazy(() => import('@/pages/flows/flow'));
 const FlowReport = lazy(() => import('@/pages/flows/flow-report'));
@@ -58,9 +72,93 @@ const App = () => {
                                 <Routes>
                                     {/* private routes */}
                                     <Route element={renderProtectedRoute()}>
-                                        {/* Main layout for chat pages */}
+                                        {/* Offensive security workspace experience */}
+                                        <Route
+                                            element={<OffsecLayout />}
+                                            path="dashboard"
+                                        >
+                                            <Route
+                                                element={
+                                                    <OffsecDashboard />
+                                                }
+                                                index
+                                            />
+                                            <Route
+                                                element={
+                                                    <WorkspaceShell>
+                                                        <WorkspaceDashboardSection />
+                                                    </WorkspaceShell>
+                                                }
+                                                path="workspaces/:workspaceId/dashboard"
+                                            />
+                                            <Route
+                                                element={
+                                                    <WorkspaceShell>
+                                                        <ReconSection />
+                                                    </WorkspaceShell>
+                                                }
+                                                path="workspaces/:workspaceId/recon"
+                                            />
+                                            <Route
+                                                element={
+                                                    <WorkspaceShell>
+                                                        <AIAttackFlowSection />
+                                                    </WorkspaceShell>
+                                                }
+                                                path="workspaces/:workspaceId/ai-attack-flow"
+                                            />
+                                            <Route
+                                                element={
+                                                    <WorkspaceShell>
+                                                        <PoCMakerSection />
+                                                    </WorkspaceShell>
+                                                }
+                                                path="workspaces/:workspaceId/poc-maker"
+                                            />
+                                            <Route
+                                                element={
+                                                    <WorkspaceShell>
+                                                        <PayloadGeneratorSection />
+                                                    </WorkspaceShell>
+                                                }
+                                                path="workspaces/:workspaceId/payload-generator"
+                                            />
+                                            <Route
+                                                element={
+                                                    <WorkspaceShell>
+                                                        <ZeroDayFinderSection />
+                                                    </WorkspaceShell>
+                                                }
+                                                path="workspaces/:workspaceId/zero-day-finder"
+                                            />
+                                            <Route
+                                                element={
+                                                    <WorkspaceShell>
+                                                        <OSINTHunterSection />
+                                                    </WorkspaceShell>
+                                                }
+                                                path="workspaces/:workspaceId/osint-hunter"
+                                            />
+                                            <Route
+                                                element={
+                                                    <WorkspaceShell>
+                                                        <ReportGeneratorSection />
+                                                    </WorkspaceShell>
+                                                }
+                                                path="workspaces/:workspaceId/report-generator"
+                                            />
+                                            <Route
+                                                element={
+                                                    <WorkspaceShell>
+                                                        <ToolboxSection />
+                                                    </WorkspaceShell>
+                                                }
+                                                path="workspaces/:workspaceId/toolbox"
+                                            />
+                                        </Route>
+
+                                        {/* Existing flows UI (advanced) */}
                                         <Route element={<MainLayout />}>
-                                            {/* Flows section with FlowsProvider */}
                                             <Route element={<FlowsLayout />}>
                                                 <Route
                                                     element={<Flows />}
@@ -79,8 +177,6 @@ const App = () => {
                                                     path="flows/:flowId"
                                                 />
                                             </Route>
-
-                                            {/* Other pages can be added here without FlowsProvider */}
                                         </Route>
 
                                         {/* Settings with nested routes */}
@@ -163,11 +259,11 @@ const App = () => {
 
                                     {/* other routes */}
                                     <Route
-                                        element={<Navigate to="/flows" />}
+                                        element={<Navigate to="/dashboard" />}
                                         path="/"
                                     />
                                     <Route
-                                        element={<Navigate to="/flows" />}
+                                        element={<Navigate to="/dashboard" />}
                                         path="*"
                                     />
                                 </Routes>

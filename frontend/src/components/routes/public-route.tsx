@@ -15,7 +15,7 @@ const PublicRoute = ({ children }: { children: React.ReactNode }) => {
         return (
             <Navigate
                 replace
-                to="/flows/new"
+                to="/dashboard"
             />
         );
     }

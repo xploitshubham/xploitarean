@@ -47,23 +47,33 @@ const FlowCentralTabs = () => {
             value={defaultTab}
         >
             <div className="max-w-full">
-                <ScrollArea className="w-full pb-2">
-                    <TabsList className="flex w-fit">
-                        <TabsTrigger value="automation">Automation</TabsTrigger>
-                        <TabsTrigger value="assistant">Assistant</TabsTrigger>
+                <ScrollArea className="w-full pb-3">
+                    <TabsList className="flex w-fit gap-1 bg-muted/30 p-1">
+                        <TabsTrigger
+                            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm transition-all"
+                            value="automation"
+                        >
+                            Automation
+                        </TabsTrigger>
+                        <TabsTrigger
+                            className="data-[state=active]:bg-primary data-[state=active]:text-primary-foreground data-[state=active]:shadow-sm transition-all"
+                            value="assistant"
+                        >
+                            Assistant
+                        </TabsTrigger>
                     </TabsList>
                     <ScrollBar orientation="horizontal" />
                 </ScrollArea>
             </div>
 
             <TabsContent
-                className="mt-2 flex-1 overflow-auto pr-4"
+                className="mt-4 flex-1 overflow-auto"
                 value="automation"
             >
                 <FlowAutomationMessages />
             </TabsContent>
             <TabsContent
-                className="mt-2 flex-1 overflow-auto pr-4"
+                className="mt-4 flex-1 overflow-auto"
                 value="assistant"
             >
                 <FlowAssistantMessages />

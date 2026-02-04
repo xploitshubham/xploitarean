@@ -711,7 +711,7 @@ func (fp *flowProvider) storeAgentResponseToGraphiti(
 			Timestamp: time.Now(),
 			Name:      "agent_response",
 			SourceDescription: fmt.Sprintf(
-				"Pentagi %s agent execution in flow %d, task %v, subtask %v",
+				"XIQ %s agent execution in flow %d, task %v, subtask %v",
 				agentType, fp.flowID, taskID, subtaskID,
 			),
 		},
@@ -787,7 +787,7 @@ func (fp *flowProvider) storeToolExecutionToGraphiti(
 			Timestamp: time.Now(),
 			Name:      fmt.Sprintf("tool_execution_%s", funcName),
 			SourceDescription: fmt.Sprintf(
-				"Pentagi tool execution in flow %d, task %v, subtask %v",
+				"XIQ tool execution in flow %d, task %v, subtask %v",
 				fp.flowID, taskID, subtaskID,
 			),
 		},

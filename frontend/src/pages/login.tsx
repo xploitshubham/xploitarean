@@ -12,7 +12,7 @@ const Login = () => {
     const authProviders = authInfo?.providers || [];
 
     // Extract the return URL from either location state or query parameters
-    const returnUrl = location.state?.from || searchParams.get('returnUrl') || '/flows/new';
+    const returnUrl = location.state?.from || searchParams.get('returnUrl') || '/dashboard';
 
     return (
         <div className="flex h-dvh w-full items-center justify-center">

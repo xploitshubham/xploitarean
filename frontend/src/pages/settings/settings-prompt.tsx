@@ -464,7 +464,7 @@ const SettingsPrompt = () => {
     // Push a blocker entry when form is dirty to manage browser back
     useEffect(() => {
         if (isDirty && !hasPushedBlockerStateRef.current) {
-            window.history.pushState({ __pentagiBlock__: true }, '');
+            window.history.pushState({ __xiqBlock__: true }, '');
             hasPushedBlockerStateRef.current = true;
         }
     }, [isDirty]);

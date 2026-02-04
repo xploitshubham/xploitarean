@@ -59,10 +59,13 @@ const FlowContext = createContext<FlowContextValue | undefined>(undefined);
 
 interface FlowProviderProps {
     children: React.ReactNode;
+    flowIdOverride?: string | null;
 }
 
-export const FlowProvider = ({ children }: FlowProviderProps) => {
-    const { flowId } = useParams();
+export const FlowProvider = ({ children, flowIdOverride }: FlowProviderProps) => {
+    const routeParams = useParams();
+    const routeFlowId = routeParams.flowId;
+    const flowId = flowIdOverride ?? routeFlowId ?? null;
 
     const [selectedAssistantIds, setSelectedAssistantIds] = useState<Record<string, null | string>>({});
 
