@@ -60,11 +60,11 @@ const FlowSubtask = ({ searchValue = '', subtask }: FlowSubtaskProps) => {
         <div className="group relative flex gap-3 rounded-lg py-2.5 transition-colors hover:bg-muted/20">
             {/* Status Icon */}
             <div className="shrink-0 pt-1">
-                <FlowTaskStatusIcon
+            <FlowTaskStatusIcon
                     className="bg-background ring-border ring-background relative z-10 size-5 rounded-full ring-2 shadow-sm transition-transform group-hover:scale-110"
-                    status={status}
-                    tooltip={`Subtask ID: ${id}`}
-                />
+                status={status}
+                tooltip={`Subtask ID: ${id}`}
+            />
             </div>
 
             {/* Subtask Content */}

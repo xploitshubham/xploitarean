@@ -9,6 +9,7 @@ import type { OAuthProvider } from '@/providers/user-provider';
 
 import Github from '@/components/icons/github';
 import Google from '@/components/icons/google';
+import Logo from '@/components/icons/logo';
 import { Button } from '@/components/ui/button';
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
@@ -166,7 +167,10 @@ const LoginForm = ({ providers, returnUrl = '/flows/new' }: LoginFormProps) => {
                 className="mx-auto grid w-[350px] gap-8"
                 onSubmit={form.handleSubmit(handleSubmit)}
             >
-                <h1 className="text-center text-3xl font-bold">XIQ</h1>
+                <div className="flex flex-col items-center gap-2">
+                    <Logo className="h-16 w-auto drop-shadow-md" />
+                    <h1 className="text-center text-3xl font-bold">XIQ</h1>
+                </div>
 
                 {providers?.length > 0 && (
                     <>

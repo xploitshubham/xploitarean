@@ -186,11 +186,11 @@ const Flow = ({ embedded = false }: { embedded?: boolean }) => {
                 <header className="sticky top-0 z-10 flex h-16 w-full shrink-0 items-center gap-2 border-b border-muted/50 bg-gradient-to-r from-background via-muted/30 to-background backdrop-blur supports-[backdrop-filter]:bg-background/60 shadow-sm transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-16">
                     <div className="flex w-full items-center justify-between gap-4 px-6">
                         <div className="flex items-center gap-3 flex-1 min-w-0">
-                            <SidebarTrigger className="-ml-1" />
-                            <Separator
+                        <SidebarTrigger className="-ml-1" />
+                        <Separator
                                 className="mr-1 h-6"
-                                orientation="vertical"
-                            />
+                            orientation="vertical"
+                        />
                             {flow && (
                                 <div className="flex items-center gap-3 flex-1 min-w-0">
                                     <div className="flex items-center gap-2 shrink-0">
@@ -206,9 +206,9 @@ const Flow = ({ embedded = false }: { embedded?: boolean }) => {
                                         />
                                     </div>
                                     <div className="flex-1 min-w-0">
-                                        <Breadcrumb>
-                                            <BreadcrumbList>
-                                                <BreadcrumbItem className="gap-2">
+                        <Breadcrumb>
+                            <BreadcrumbList>
+                                <BreadcrumbItem className="gap-2">
                                                     <BreadcrumbPage className="text-sm font-semibold truncate">
                                                         {flow.title || `Flow ${flow.id}`}
                                                     </BreadcrumbPage>
@@ -237,24 +237,24 @@ const Flow = ({ embedded = false }: { embedded?: boolean }) => {
                                         </div>
                                     </div>
                                 </div>
-                            )}
+                                    )}
                             {!flow && (
                                 <Breadcrumb>
                                     <BreadcrumbList>
                                         <BreadcrumbItem>
                                             <BreadcrumbPage className="text-sm font-semibold">Select a flow</BreadcrumbPage>
-                                        </BreadcrumbItem>
-                                    </BreadcrumbList>
-                                </Breadcrumb>
+                                </BreadcrumbItem>
+                            </BreadcrumbList>
+                        </Breadcrumb>
                             )}
-                        </div>
+                    </div>
                         {!!taskCount && (
                             <div className="flex items-center gap-2 shrink-0">
                                 <FlowReportDropdown />
                             </div>
                         )}
-                    </div>
-                </header>
+                </div>
+            </header>
             )}
             <div className={`relative flex ${containerHeightClass} w-full max-w-full flex-1 bg-gradient-to-br from-background via-muted/5 to-background`}>
                 {isFlowLoading && (

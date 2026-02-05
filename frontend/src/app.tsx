@@ -20,6 +20,7 @@ import { UserProvider } from '@/providers/user-provider';
 
 import { SystemSettingsProvider } from './providers/system-settings-provider';
 import OffsecDashboard from '@/pages/offsec/offsec-dashboard';
+import XiqMainDashboard from '@/pages/offsec/xiq-main-dashboard';
 import WorkspaceShell from '@/pages/offsec/workspace-shell';
 import {
     AIAttackFlowSection,
@@ -78,10 +79,12 @@ const App = () => {
                                             path="dashboard"
                                         >
                                             <Route
-                                                element={
-                                                    <OffsecDashboard />
-                                                }
+                                                element={<XiqMainDashboard />}
                                                 index
+                                            />
+                                            <Route
+                                                element={<OffsecDashboard />}
+                                                path="workspaces"
                                             />
                                             <Route
                                                 element={

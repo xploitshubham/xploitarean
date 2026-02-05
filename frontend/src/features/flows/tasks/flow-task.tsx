@@ -84,84 +84,84 @@ const FlowTask = ({ searchValue = '', task }: FlowTaskProps) => {
                 <div className="relative flex gap-4">
                     {/* Status Icon */}
                     <div className="shrink-0 pt-0.5">
-                        <FlowTaskStatusIcon
+                <FlowTaskStatusIcon
                             className="bg-background ring-border ring-background relative z-10 size-7 rounded-full ring-2 shadow-md transition-transform group-hover:scale-110"
-                            status={status}
-                            tooltip={`Task ID: ${id}`}
-                        />
+                    status={status}
+                    tooltip={`Task ID: ${id}`}
+                />
                     </div>
 
                     {/* Task Content */}
                     <div className="flex flex-1 flex-col gap-3.5 min-w-0">
                         {/* Task Title */}
                         <div className="font-semibold leading-snug">
-                            <Markdown
+                        <Markdown
                                 className="prose-fixed prose-sm prose-headings:font-semibold wrap-break-word *:m-0 [&>p]:leading-relaxed [&>p]:text-foreground"
-                                searchValue={searchValue}
-                            >
-                                {title}
-                            </Markdown>
-                        </div>
+                            searchValue={searchValue}
+                        >
+                            {title}
+                        </Markdown>
+                    </div>
 
                         {/* Progress Bar */}
-                        {hasSubtasks && progress < 100 && (
+                    {hasSubtasks && progress < 100 && (
                             <div className="space-y-2">
                                 <div className="flex items-center justify-between gap-3">
-                                    <Progress
+                            <Progress
                                         className="h-2.5 flex-1 bg-muted/50 shadow-inner"
-                                        value={progress}
-                                    />
+                                value={progress}
+                            />
                                     <div className="shrink-0 rounded-md bg-muted/50 px-2 py-0.5 text-xs font-semibold text-muted-foreground">
                                         {progress}% • {completedSubtasksCount}/{subtasks?.length}
                                     </div>
-                                </div>
                             </div>
-                        )}
+                        </div>
+                    )}
 
                         {/* Result Details */}
-                        {result && (
+                    {result && (
                             <div className="mt-1">
                                 <button
                                     className="flex items-center gap-1.5 rounded-md px-2 py-1 text-xs font-semibold text-primary transition-all hover:bg-primary/10 hover:text-primary/90"
-                                    onClick={() => setIsDetailsVisible(!isDetailsVisible)}
+                                onClick={() => setIsDetailsVisible(!isDetailsVisible)}
                                     type="button"
-                                >
+                            >
                                     <span>{isDetailsVisible ? '▼' : '▶'}</span>
                                     <span>{isDetailsVisible ? 'Hide details' : 'Show details'}</span>
                                 </button>
-                                {isDetailsVisible && (
+                            {isDetailsVisible && (
                                     <Card className="mt-3 border-muted/50 bg-muted/40 shadow-sm">
                                         <CardContent className="p-4">
-                                            <Markdown
+                                        <Markdown
                                                 className="prose-xs prose-fixed wrap-break-word prose-pre:bg-muted/50 prose-code:text-xs"
-                                                searchValue={searchValue}
-                                            >
-                                                {result}
-                                            </Markdown>
-                                        </CardContent>
-                                    </Card>
-                                )}
-                            </div>
-                        )}
-                    </div>
+                                            searchValue={searchValue}
+                                        >
+                                            {result}
+                                        </Markdown>
+                                    </CardContent>
+                                </Card>
+                            )}
+                        </div>
+                    )}
                 </div>
+            </div>
 
                 {/* Subtasks */}
-                {hasSubtasks ? (
+            {hasSubtasks ? (
                     <div className="mt-5 ml-11 space-y-3 border-l-2 border-primary/20 pl-5">
-                        {sortedSubtasks.map((subtask) => (
-                            <FlowSubtask
-                                key={subtask.id}
-                                searchValue={searchValue}
-                                subtask={subtask}
-                            />
-                        ))}
-                    </div>
-                ) : (
+                    {sortedSubtasks.map((subtask) => (
+                        <FlowSubtask
+                            key={subtask.id}
+                            searchValue={searchValue}
+                            subtask={subtask}
+                        />
+                    ))}
+                </div>
+            ) : (
                     <div className="mt-4 ml-11 rounded-md bg-muted/30 px-3 py-2 text-xs text-muted-foreground italic">
                         Waiting for subtasks to be created...
                     </div>
-                )}
+            )}
             </CardContent>
         </Card>
     );

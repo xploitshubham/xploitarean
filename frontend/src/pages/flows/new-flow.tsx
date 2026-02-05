@@ -161,20 +161,20 @@ const NewFlow = () => {
                                 </Button>
                             </div>
                         ) : (
-                            <FlowForm
-                                defaultValues={{
-                                    providerName: selectedProvider?.name ?? '',
-                                    useAgents: shouldUseAgents,
-                                }}
-                                isSubmitting={isLoading}
-                                onSubmit={handleSubmit}
-                                placeholder={
-                                    !isLoading
+                        <FlowForm
+                            defaultValues={{
+                                providerName: selectedProvider?.name ?? '',
+                                useAgents: shouldUseAgents,
+                            }}
+                            isSubmitting={isLoading}
+                            onSubmit={handleSubmit}
+                            placeholder={
+                                !isLoading
                                         ? 'What would you like me to help you with?'
-                                        : 'Creating a new flow...'
-                                }
-                                type={flowType}
-                            />
+                                    : 'Creating a new flow...'
+                            }
+                            type={flowType}
+                        />
                         )}
                     </CardContent>
                 </Card>

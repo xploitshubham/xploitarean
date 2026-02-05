@@ -123,11 +123,11 @@ const FlowTasks = () => {
             {/* Professional Search Bar */}
             <div className="sticky top-0 z-10 border-b border-muted/50 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-6 py-4 shadow-sm">
                 <Form {...form}>
-                    <FormField
-                        control={form.control}
-                        name="search"
-                        render={({ field }) => (
-                            <FormControl>
+                        <FormField
+                            control={form.control}
+                            name="search"
+                            render={({ field }) => (
+                                <FormControl>
                                 <div className="relative">
                                     <InputGroup className="shadow-sm">
                                         <InputGroupAddon className="bg-muted/50">
@@ -157,9 +157,9 @@ const FlowTasks = () => {
                                         )}
                                     </InputGroup>
                                 </div>
-                            </FormControl>
-                        )}
-                    />
+                                </FormControl>
+                            )}
+                        />
                 </Form>
             </div>
 
@@ -202,20 +202,20 @@ const FlowTasks = () => {
             ) : (
                 <div className="flex flex-1 items-center justify-center px-6 py-12">
                     <Empty className="max-w-md">
-                        <EmptyHeader>
-                            <EmptyMedia variant="icon">
+                    <EmptyHeader>
+                        <EmptyMedia variant="icon">
                                 <div className="flex size-16 items-center justify-center rounded-2xl bg-primary/10">
                                     <ListTodo className="size-8 text-primary/60" />
                                 </div>
-                            </EmptyMedia>
+                        </EmptyMedia>
                             <EmptyTitle className="text-lg font-semibold">No tasks found</EmptyTitle>
                             <EmptyDescription className="text-sm text-muted-foreground">
                                 {debouncedSearchValue
                                     ? 'No tasks match your search criteria. Try a different search term.'
                                     : 'Tasks will appear here once the agent starts executing the recon flow.'}
                             </EmptyDescription>
-                        </EmptyHeader>
-                    </Empty>
+                    </EmptyHeader>
+                </Empty>
                 </div>
             )}
         </div>

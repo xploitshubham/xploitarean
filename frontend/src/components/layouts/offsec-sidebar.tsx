@@ -7,9 +7,9 @@ import {
     Radar,
     ShieldAlert,
     Swords,
-    TerminalSquare,
-    Plus,
     ChevronRight,
+    LogOut,
+    Settings,
 } from 'lucide-react';
 import { Link, useLocation, useMatch, useNavigate } from 'react-router-dom';
 
@@ -26,31 +26,27 @@ import {
     SidebarMenuItem,
     SidebarRail,
 } from '@/components/ui/sidebar';
-import { Button } from '@/components/ui/button';
-import { Badge } from '@/components/ui/badge';
 import Logo from '@/components/icons/logo';
 import { useWorkspaces } from '@/features/workspaces/workspace-context';
 import { Separator } from '@/components/ui/separator';
+import { useUser } from '@/providers/user-provider';
 
 const OffsecSidebar = () => {
     const navigate = useNavigate();
     const location = useLocation();
-    const { workspaces, selectedWorkspaceId, selectWorkspace, createWorkspace } = useWorkspaces();
+    const { logout } = useUser();
+    const { workspaces, selectedWorkspaceId, selectWorkspace } = useWorkspaces();
 
     // Always call hooks unconditionally
     const dashboardMatch1 = useMatch('/dashboard');
     const dashboardMatch2 = useMatch('/dashboard/');
+    const workspacesListMatch1 = useMatch('/dashboard/workspaces');
+    const workspacesListMatch2 = useMatch('/dashboard/workspaces/');
     const workspaceMatch = useMatch('/dashboard/workspaces/:workspaceId/*');
-    
-    const isDashboardActive = !!dashboardMatch1 || !!dashboardMatch2;
-    const isWorkspaceRoute = !!workspaceMatch;
 
-    const handleCreateWorkspace = () => {
-        const name = window.prompt('Workspace name:');
-        if (!name) return;
-        const ws = createWorkspace(name);
-        navigate(`/dashboard/workspaces/${ws.id}/dashboard`);
-    };
+    const isDashboardActive = !!dashboardMatch1 || !!dashboardMatch2;
+    const isWorkspacesListActive = !!workspacesListMatch1 || !!workspacesListMatch2;
+    const isWorkspaceRoute = !!workspaceMatch;
 
     const handleWorkspaceClick = (id: string) => {
         selectWorkspace(id);
@@ -69,7 +65,7 @@ const OffsecSidebar = () => {
         { icon: Radar, label: 'Recon Engine', slug: 'recon' },
         { icon: Swords, label: 'AI Attack Flow', slug: 'ai-attack-flow' },
         { icon: FlaskConical, label: 'PoC Maker', slug: 'poc-maker' },
-        { icon: TerminalSquare, label: 'Payload Generator', slug: 'payload-generator' },
+        { icon: FolderKanban, label: 'Payload Generator', slug: 'payload-generator' },
         { icon: ShieldAlert, label: 'Zero-Day Finder', slug: 'zero-day-finder' },
         { icon: Map, label: 'OSINT Hunter', slug: 'osint-hunter' },
         { icon: FileText, label: 'Report Generator', slug: 'report-generator' },
@@ -115,59 +111,20 @@ const OffsecSidebar = () => {
                                             </Link>
                                         </SidebarMenuButton>
                                     </SidebarMenuItem>
-                                </SidebarMenu>
-                            </SidebarGroupContent>
-                        </SidebarGroup>
-
-                        <Separator className="mx-2" />
-
-                        <SidebarGroup className="px-2">
-                            <SidebarGroupLabel className="flex items-center justify-between gap-2 px-2">
-                                <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-                                    Workspaces
-                                </span>
-                                <Button
-                                    className="h-6 w-6 p-0"
-                                    onClick={handleCreateWorkspace}
-                                    size="sm"
-                                    variant="ghost"
-                                    title="Create new workspace"
-                                >
-                                    <Plus className="size-3.5" />
-                                </Button>
-                            </SidebarGroupLabel>
-                            <SidebarGroupContent>
-                                <SidebarMenu>
-                                    {workspaces.map((ws) => (
-                                        <SidebarMenuItem key={ws.id}>
-                                            <SidebarMenuButton
-                                                isActive={currentWorkspace?.id === ws.id}
-                                                onClick={() => handleWorkspaceClick(ws.id)}
-                                                className="group relative rounded-lg transition-all hover:bg-muted/50 data-[active=true]:bg-primary/10 data-[active=true]:text-primary data-[active=true]:shadow-sm"
-                                            >
-                                                <div className="flex size-8 items-center justify-center rounded-md bg-muted group-data-[active=true]:bg-primary/20">
+                                    <SidebarMenuItem>
+                                        <SidebarMenuButton
+                                            asChild
+                                            isActive={!!isWorkspacesListActive}
+                                            className="group relative rounded-lg transition-all hover:bg-primary/5 data-[active=true]:bg-primary/10 data-[active=true]:text-primary data-[active=true]:shadow-sm"
+                                        >
+                                            <Link to="/dashboard/workspaces" className="flex items-center gap-3">
+                                                <div className="flex size-8 items-center justify-center rounded-md bg-primary/10 group-data-[active=true]:bg-primary/20">
                                                     <FolderKanban className="size-4" />
                                                 </div>
-                                                <span className="truncate font-medium">{ws.name}</span>
-                                                {currentWorkspace?.id === ws.id && (
-                                                    <ChevronRight className="ml-auto size-4 opacity-50" />
-                                                )}
-                                            </SidebarMenuButton>
-                                        </SidebarMenuItem>
-                                    ))}
-                                    {workspaces.length === 0 && (
-                                        <SidebarMenuItem>
-                                            <SidebarMenuButton
-                                                className="text-muted-foreground hover:text-foreground"
-                                                onClick={handleCreateWorkspace}
-                                            >
-                                                <Plus className="size-4" />
-                                                <span className="text-xs font-medium">
-                                                    Create workspace
-                                                </span>
-                                            </SidebarMenuButton>
-                                        </SidebarMenuItem>
-                                    )}
+                                                <span className="font-medium">Workspaces</span>
+                                            </Link>
+                                        </SidebarMenuButton>
+                                    </SidebarMenuItem>
                                 </SidebarMenu>
                             </SidebarGroupContent>
                         </SidebarGroup>
@@ -240,15 +197,29 @@ const OffsecSidebar = () => {
                             asChild
                             className="rounded-lg transition-all hover:bg-muted/50"
                         >
-                            <Link to="/flows" className="flex items-center gap-3">
+                            <Link to="/settings" className="flex items-center gap-3">
                                 <div className="flex size-8 items-center justify-center rounded-md bg-muted/50">
-                                    <TerminalSquare className="size-4" />
+                                    <Settings className="size-4" />
                                 </div>
                                 <div className="flex-1 text-left">
-                                    <span className="block font-medium text-sm">Advanced Flows</span>
-                                    <span className="text-xs text-muted-foreground">Legacy interface</span>
+                                    <span className="block font-medium text-sm">Settings</span>
+                                    <span className="text-xs text-muted-foreground">XIQ configuration</span>
                                 </div>
                             </Link>
+                        </SidebarMenuButton>
+                    </SidebarMenuItem>
+                    <SidebarMenuItem>
+                        <SidebarMenuButton
+                            className="rounded-lg text-red-400 transition-all hover:bg-red-500/10 hover:text-red-300"
+                            onClick={() => logout()}
+                        >
+                            <div className="flex size-8 items-center justify-center rounded-md bg-red-500/10">
+                                <LogOut className="size-4" />
+                            </div>
+                            <div className="flex-1 text-left">
+                                <span className="block font-medium text-sm">Log out</span>
+                                <span className="text-xs text-muted-foreground">Sign out of XIQ</span>
+                            </div>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                 </SidebarMenu>

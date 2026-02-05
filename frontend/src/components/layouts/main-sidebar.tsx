@@ -1,18 +1,16 @@
 import { Avatar, AvatarFallback } from '@radix-ui/react-avatar';
 import {
     ChevronsUpDown,
-    GitFork,
+    Compass,
+    FolderKanban,
     KeyRound,
     LogOut,
     Monitor,
     Moon,
-    Plus,
     Settings,
     Settings2,
-    Star,
     Sun,
     UserIcon,
-    X,
 } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useMatch } from 'react-router-dom';
@@ -52,7 +50,9 @@ import { useUser } from '@/providers/user-provider';
 const MainSidebar = () => {
     const [isPasswordModalOpen, setIsPasswordModalOpen] = useState(false);
 
-    const isFlowsActive = useMatch('/flows/*');
+    const isDashboardActive = !!useMatch('/dashboard');
+    const isWorkspacesActive =
+        !!useMatch('/dashboard/workspaces') || !!useMatch('/dashboard/workspaces/*');
     const isSettingsActive = useMatch('/settings/*');
 
     const { authInfo, logout } = useUser();
@@ -82,72 +82,33 @@ const MainSidebar = () => {
                 <SidebarGroup className="bg-sidebar sticky top-0 z-10">
                     <SidebarGroupContent>
                         <SidebarMenu>
-                            <SidebarMenuItem className="group-data-[state=expanded]:hidden">
-                                <SidebarMenuButton asChild>
-                                    <Link to="/flows/new">
-                                        <Plus />
-                                        New Flow
+                            <SidebarMenuItem>
+                                <SidebarMenuButton
+                                    asChild
+                                    isActive={!!isDashboardActive}
+                                >
+                                    <Link to="/dashboard">
+                                        <Compass />
+                                        Dashboard
                                     </Link>
                                 </SidebarMenuButton>
                             </SidebarMenuItem>
                             <SidebarMenuItem>
                                 <SidebarMenuButton
                                     asChild
-                                    isActive={!!isFlowsActive}
+                                    isActive={!!isWorkspacesActive}
                                 >
-                                    <Link to="/flows">
-                                        <GitFork />
-                                        Flows
+                                    <Link to="/dashboard/workspaces">
+                                        <FolderKanban />
+                                        Workspaces
                                     </Link>
                                 </SidebarMenuButton>
-                                <SidebarMenuAction
-                                    asChild
-                                    className="data-[state=open]:bg-accent rounded-sm"
-                                    showOnHover
-                                >
-                                    <Link to="/flows/new">
-                                        <Plus />
-                                    </Link>
-                                </SidebarMenuAction>
                             </SidebarMenuItem>
                         </SidebarMenu>
                     </SidebarGroupContent>
                 </SidebarGroup>
 
-                {favoriteFlows.length > 0 && (
-                    <SidebarGroup>
-                        <SidebarGroupLabel className="flex items-center gap-2">
-                            <Star />
-                            Favorite Flows
-                        </SidebarGroupLabel>
-                        <SidebarGroupContent>
-                            <SidebarMenu>
-                                {favoriteFlows.map((flow) => (
-                                    <SidebarMenuItem key={flow.id}>
-                                        <SidebarMenuButton asChild>
-                                            <Link to={`/flows/${flow.id}`}>
-                                                <span className="-mx-2 w-8 shrink-0 text-center text-xs group-data-[state=expanded]:hidden">
-                                                    {flow.id}
-                                                </span>
-                                                <span className="text-muted-foreground bg-background dark:bg-muted -my-0.5 -ml-0.5 h-5 min-w-5 shrink-0 rounded-md px-px py-0.5 text-center text-xs group-data-[state=collapsed]:hidden">
-                                                    {flow.id}
-                                                </span>
-                                                <span className="truncate">{flow.name}</span>
-                                            </Link>
-                                        </SidebarMenuButton>
-                                        <SidebarMenuAction
-                                            className="data-[state=open]:bg-accent rounded-sm"
-                                            onClick={() => removeFavoriteFlow(flow.id)}
-                                            showOnHover
-                                        >
-                                            <X />
-                                        </SidebarMenuAction>
-                                    </SidebarMenuItem>
-                                ))}
-                            </SidebarMenu>
-                        </SidebarGroupContent>
-                    </SidebarGroup>
-                )}
+                {/* Legacy favorite flows section removed for a cleaner XIQ navigation */}
             </SidebarContent>
             <SidebarFooter>
                 <SidebarMenu>
